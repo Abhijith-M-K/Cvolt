@@ -483,15 +483,7 @@ html, body {
   height: 100%;
 }
 
-@media (max-width: 1024px) {
-  .editor-pane {
-    height: 100% !important;
-    border-right: none;
-    border-bottom: none !important;
-  }
-}
-
-/* Editor Tabs Sidebar */
+/* Editor Tabs Sidebar (Desktop) */
 .editor-tabs {
   width: 190px;
   background: #f8fafc;
@@ -504,9 +496,56 @@ html, body {
   flex-shrink: 0;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1024px) {
+  .editor-pane {
+    height: 100% !important;
+    border-right: none;
+    border-bottom: none !important;
+    flex-direction: column !important;
+  }
+
   .editor-tabs {
-    width: 65px;
+    width: 100% !important;
+    height: auto !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 0.6rem 1rem !important;
+    gap: 0.5rem !important;
+    border-right: none !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    background: #f8fafc;
+    scrollbar-width: none;
+    flex-shrink: 0;
+  }
+
+  .editor-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab-btn {
+    width: auto !important;
+    padding: 0.6rem 1rem !important;
+    gap: 0.5rem !important;
+    white-space: nowrap !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    flex-shrink: 0;
+  }
+
+  .tab-btn span {
+    display: inline !important;
+    font-size: 0.8rem !important;
+  }
+
+  .tab-btn.active::after {
+    left: 15% !important;
+    right: 15% !important;
+    bottom: 0 !important;
+    top: auto !important;
+    width: auto !important;
+    height: 3px !important;
+    border-radius: 4px 4px 0 0 !important;
   }
 }
 
@@ -550,12 +589,8 @@ html, body {
 }
 
 @media (max-width: 640px) {
-  .tab-btn span {
-    display: none;
-  }
   .tab-btn {
-    justify-content: center;
-    padding: 0.85rem 0;
+    padding: 0.5rem 0.85rem;
   }
 }
 

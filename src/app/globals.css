@@ -1566,3 +1566,39 @@ html, body {
     padding: 2.5rem 1rem;
   }
 }
+
+/* AI Optimize Button Flex Wrapper layout to prevent absolute overlaps */
+div:has(> .ai-optimize-btn) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+  position: relative;
+}
+
+div:has(> .ai-optimize-btn) .form-label {
+  margin-bottom: 0 !important;
+  flex: 1;
+}
+
+div:has(> .ai-optimize-btn) .ai-optimize-btn {
+  position: static !important;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  div:has(> .ai-optimize-btn) {
+    align-items: flex-start;
+  }
+  
+  .dynamic-item-card {
+    padding-top: 3.25rem !important; /* Make space so absolute delete cross icon at the top right doesn't overlap labels */
+    position: relative;
+  }
+
+  .remove-btn {
+    top: 0.75rem !important;
+    right: 0.75rem !important;
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "Cvolt Resume Builder",
+  "short_name": "Cvolt Builder",
+  "description": "Create ATS friendly resumes and scan CV scannability with free server-side AI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

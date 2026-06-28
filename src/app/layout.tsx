@@ -14,8 +14,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cvolt Resume Builder | Land Your Next Interview",
-  description: "Create a highly scannable, ATS-friendly resume to bypass applicant tracking filters. Export directly to PDF or Word document.",
+  title: "Free Resume Builder | ATS Friendly Resume Builder - Cvolt",
+  description: "Build an ATS friendly resume online for free. Download professional resume templates and bypass applicant tracking filters to land your next interview.",
+  keywords: [
+    "free resume builder",
+    "ATS friendly resume builder",
+    "build CV online free",
+    "resume template download",
+    "Cvolt resume builder",
+    "resume maker",
+    "ATS CV template"
+  ],
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
@@ -35,6 +44,15 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
+        {process.env.NEXT_PUBLIC_ADSENSE_CLIENT && (
+          <Script
+            id="adsense-loader"
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT}`}
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
+        )}
         <Script
           id="clear-sw"
           strategy="beforeInteractive"

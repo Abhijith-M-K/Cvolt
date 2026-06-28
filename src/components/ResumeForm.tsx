@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { ResumeData, WorkExperience, Education, SkillCategory, Project, Certification, PersonalInfo, CustomSectionItem } from "@/types/resume";
+import AdSense from "./AdSense";
+import TemplatePicker from "./TemplatePicker";
 
 interface ResumeFormProps {
   data: ResumeData;
@@ -9,9 +11,11 @@ interface ResumeFormProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   onOptimizeField: (fieldPath: string, currentValue: string, context: string) => void;
+  templateStyle: "classic" | "modern" | "executive";
+  onStyleChange: (style: "classic" | "modern" | "executive") => void;
 }
 
-export default function ResumeForm({ data, onChange, activeTab, setActiveTab, onOptimizeField }: ResumeFormProps) {
+export default function ResumeForm({ data, onChange, activeTab, setActiveTab, onOptimizeField, templateStyle, onStyleChange }: ResumeFormProps) {
   const [confirmModal, setConfirmModal] = useState<{
     isOpen: boolean;
     title: string;
@@ -277,6 +281,7 @@ export default function ResumeForm({ data, onChange, activeTab, setActiveTab, on
 
   // Sidebar Tabs Config
   const tabs = [
+    { id: "templates", label: "Template Styles" },
     { id: "personal", label: "Contact Info" },
     { id: "summary", label: "Summary" },
     { id: "experience", label: "Experience" },
@@ -297,6 +302,11 @@ export default function ResumeForm({ data, onChange, activeTab, setActiveTab, on
             onClick={() => setActiveTab(tab.id)}
           >
             {/* Simple SVGs for icons */}
+            {tab.id === "templates" && (
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+              </svg>
+            )}
             {tab.id === "personal" && (
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -346,6 +356,13 @@ export default function ResumeForm({ data, onChange, activeTab, setActiveTab, on
 
       {/* Form Editor Window */}
       <div className="form-content">
+        {/* Template Styles Preset selection */}
+        {activeTab === "templates" && (
+          <div className="form-section">
+            <TemplatePicker selectedStyle={templateStyle} onStyleChange={onStyleChange} onContinue={() => setActiveTab("personal")} />
+          </div>
+        )}
+
         {/* Personal Details */}
         {activeTab === "personal" && (
           <div className="form-section">

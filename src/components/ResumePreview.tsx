@@ -3,9 +3,10 @@ import { ResumeData } from "@/types/resume";
 
 interface ResumePreviewProps {
   data: ResumeData;
+  templateStyle?: "classic" | "modern" | "executive";
 }
 
-export default function ResumePreview({ data }: ResumePreviewProps) {
+export default function ResumePreview({ data, templateStyle = "classic" }: ResumePreviewProps) {
   const { personalInfo, workExperience, education, skills, projects, certifications, others } = data;
 
   // Helper to render bullet points
@@ -32,7 +33,7 @@ export default function ResumePreview({ data }: ResumePreviewProps) {
 
   return (
     <div className="preview-pane">
-      <div className="resume-document" id="resume-print-area">
+      <div className={`resume-document theme-${templateStyle}`} id="resume-print-area">
         <table className="print-layout-table">
           <thead>
             <tr>

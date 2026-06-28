@@ -1,12 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { ResumeData } from "@/types/resume";
 import { initialResumeData } from "@/utils/mockData";
 import { generateDocx } from "@/utils/docxGenerator";
 import { optimizeText, scanResumeData } from "@/utils/gemini";
 import ResumeForm from "@/components/ResumeForm";
 import ResumePreview from "@/components/ResumePreview";
+import TemplatePicker from "@/components/TemplatePicker";
+import DownloadSuccessModal from "@/components/DownloadSuccessModal";
+import AdSense from "@/components/AdSense";
 
 export default function Home() {
   const [resumeData, setResumeData] = useState<ResumeData>(initialResumeData);
@@ -15,6 +19,8 @@ export default function Home() {
   const [view, setView] = useState<"landing" | "editor">("landing");
   const [hasDraft, setHasDraft] = useState<boolean>(false);
   const [workspaceView, setWorkspaceView] = useState<"edit" | "preview">("edit");
+  const [templateStyle, setTemplateStyle] = useState<"classic" | "modern" | "executive">("classic");
+  const [showDownloadModal, setShowDownloadModal] = useState<boolean>(false);
 
   // AI Assistant States
   const [isAiLoading, setIsAiLoading] = useState<boolean>(false);
@@ -58,6 +64,13 @@ export default function Home() {
   // Load state client-side
   useEffect(() => {
     setIsClient(true);
+    
+    // Check URL parameters for starting builder directly
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("start") === "true" || params.get("view") === "editor") {
+      setView("editor");
+      setActiveTab("templates");
+    }
     
     // Load resume data
     const savedData = localStorage.getItem("ats-resume-data");
@@ -114,14 +127,28 @@ export default function Home() {
     localStorage.setItem("ats-resume-data", JSON.stringify(newData));
   };
 
-  const handleDownloadPdf = () => {
-    window.print();
+  const handleDownloadPdf = async () => {
+    setIsAiLoading(true);
+    showToast("Generating high-resolution PDF download...", "info");
+    try {
+      const { downloadPdf } = await import("@/utils/pdfGenerator");
+      const cleanFileName = `${resumeData.personalInfo.fullName ? resumeData.personalInfo.fullName.replace(/\s+/g, "_") : "Resume"}_CV.pdf`;
+      await downloadPdf("resume-print-area", cleanFileName);
+      showToast("PDF downloaded successfully!", "success");
+      setShowDownloadModal(true);
+    } catch (error) {
+      console.error("Error generating PDF document:", error);
+      showToast("An error occurred while generating the PDF. Please try again.", "error");
+    } finally {
+      setIsAiLoading(false);
+    }
   };
 
   const handleDownloadDocx = async () => {
     try {
       await generateDocx(resumeData);
       showToast("Word document download started successfully!", "success");
+      setShowDownloadModal(true);
     } catch (error) {
       console.error("Error generating DOCX document:", error);
       showToast("An error occurred while generating the Word document. Please try again.", "error");
@@ -242,12 +269,28 @@ export default function Home() {
   if (view === "landing") {
     return (
       <div className="landing-container">
-        <div className="landing-header">
+        <div className="landing-header" style={{ position: "absolute", top: "1.5rem", left: "2rem", right: "2rem", display: "flex", justifyContent: "space-between", alignItems: "center", width: "calc(100% - 4rem)" }}>
           <div className="brand">
             <div className="brand-logo-container">
               <img src="/favicon.png" alt="Cvolt Logo" className="brand-logo-img" />
             </div>
             <h1 className="brand-title">Cvolt Resume Builder</h1>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+            <Link href="/blog" style={{ color: "var(--text-muted)", textDecoration: "none", fontWeight: 600, fontSize: "0.95rem" }}>
+              Career Blog
+            </Link>
+            <button 
+              className="btn btn-primary" 
+              style={{ padding: "0.5rem 1rem", fontSize: "0.85rem" }}
+              onClick={() => {
+                handleDataChange(initialResumeData);
+                setActiveTab("templates");
+                setView("editor");
+              }}
+            >
+              Build Free CV
+            </button>
           </div>
         </div>
 
@@ -283,6 +326,7 @@ export default function Home() {
               style={{ width: "100%", justifyContent: "center", marginTop: "auto" }}
               onClick={() => {
                 handleDataChange(initialResumeData);
+                setActiveTab("templates");
                 setView("editor");
               }}
             >
@@ -377,6 +421,14 @@ export default function Home() {
             <span className="brand-title" style={{ fontSize: "1.1rem" }}>Cvolt Resume Builder</span>
           </div>
           <p>© {new Date().getFullYear()} Cvolt. Premium ATS Resume Builder. All rights reserved.</p>
+          <div style={{ display: "flex", justifyContent: "center", gap: "1.5rem", marginTop: "0.75rem", fontSize: "0.85rem" }}>
+            <Link href="/blog" style={{ color: "var(--text-muted)", textDecoration: "none" }}>
+              Career Blog
+            </Link>
+            <Link href="/blog/how-to-make-an-ats-friendly-resume" style={{ color: "var(--text-muted)", textDecoration: "none" }}>
+              ATS Resume Guide
+            </Link>
+          </div>
         </footer>
       </div>
     );
@@ -387,11 +439,16 @@ export default function Home() {
     <div className="app-container">
       {/* Header */}
       <header className="app-header">
-        <div className="brand" onClick={() => setView("landing")} style={{ cursor: "pointer" }} title="Back to Home Page">
-          <div className="brand-logo-container">
-            <img src="/favicon.png" alt="Cvolt Logo" className="brand-logo-img" />
+        <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+          <div className="brand" onClick={() => setView("landing")} style={{ cursor: "pointer" }} title="Back to Home Page">
+            <div className="brand-logo-container">
+              <img src="/favicon.png" alt="Cvolt Logo" className="brand-logo-img" />
+            </div>
+            <h1 className="brand-title">Cvolt Resume Builder</h1>
           </div>
-          <h1 className="brand-title">Cvolt Resume Builder</h1>
+          <Link href="/blog" style={{ color: "var(--text-muted)", textDecoration: "none", fontWeight: 550, fontSize: "0.9rem" }} className="mobile-hide">
+            Blog & Guides
+          </Link>
         </div>
 
         <div className="action-buttons">
@@ -469,10 +526,12 @@ export default function Home() {
             activeTab={activeTab}
             setActiveTab={setActiveTab}
             onOptimizeField={handleOptimizeField}
+            templateStyle={templateStyle}
+            onStyleChange={setTemplateStyle}
           />
         </div>
         <div className={`workspace-panel-wrapper ${workspaceView === "preview" ? "mobile-show" : "mobile-hide"}`}>
-          <ResumePreview data={resumeData} />
+          <ResumePreview data={resumeData} templateStyle={templateStyle} />
         </div>
       </main>
 
@@ -587,6 +646,8 @@ export default function Home() {
           </div>
         </div>
       )}
+      {/* DOWNLOAD SUCCESS MODAL */}
+      <DownloadSuccessModal isOpen={showDownloadModal} onClose={() => setShowDownloadModal(false)} />
     </div>
   );
 }

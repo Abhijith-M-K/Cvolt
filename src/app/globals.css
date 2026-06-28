@@ -415,7 +415,7 @@ html, body {
   display: none;
 }
 
-@media (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .workspace-grid {
     grid-template-columns: 1fr !important;
     grid-template-rows: 1fr !important;
@@ -496,7 +496,7 @@ html, body {
   flex-shrink: 0;
 }
 
-@media (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .editor-pane {
     height: 100% !important;
     border-right: none;
@@ -710,25 +710,33 @@ html, body {
 
 .remove-btn {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: rgba(239, 68, 68, 0.08);
-  color: var(--danger);
-  border: 1px solid rgba(239, 68, 68, 0.1);
-  border-radius: 6px;
-  width: 1.75rem;
-  height: 1.75rem;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: #fef2f2;
+  color: #ef4444;
+  border: 1px solid #fee2e2;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 10;
   transition: var(--transition-smooth);
+  font-size: 1.1rem;
+  line-height: 1;
 }
 
 .remove-btn:hover {
-  background: var(--danger);
+  background: #ef4444;
   color: white;
+  border-color: #ef4444;
+  transform: scale(1.05);
+}
+
+.dynamic-item-card .form-grid {
+  margin-top: 0.75rem;
 }
 
 .add-btn {
@@ -765,7 +773,7 @@ html, body {
   height: 100%;
 }
 
-@media (max-width: 1024px) {
+@media screen and (max-width: 1024px) {
   .preview-pane {
     height: auto;
     padding: 1.5rem 1rem;
@@ -1639,7 +1647,7 @@ html, body {
   max-width: 1000px;
   border-top: 1px solid rgba(226, 232, 240, 0.8);
   padding: 2.5rem 1.5rem;
-  margin-top: 5rem;
+  margin: 5rem auto 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1652,12 +1660,28 @@ html, body {
   margin: 0;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .section-heading {
     font-size: 1.85rem;
   }
   .landing-section {
     padding: 2.5rem 1rem;
+  }
+  .landing-container {
+    padding: 5.5rem 1rem 2rem 1rem !important;
+  }
+  .landing-header {
+    left: 1rem !important;
+    top: 1.25rem !important;
+  }
+  .landing-title {
+    font-size: 2.15rem !important;
+  }
+  .landing-subtitle {
+    font-size: 0.95rem !important;
+  }
+  .landing-hero {
+    margin-bottom: 2rem !important;
   }
 }
 
@@ -1681,18 +1705,411 @@ div:has(> .ai-optimize-btn) .ai-optimize-btn {
   flex-shrink: 0;
 }
 
-@media (max-width: 640px) {
+@media screen and (max-width: 640px) {
   div:has(> .ai-optimize-btn) {
     align-items: flex-start;
   }
-  
-  .dynamic-item-card {
-    padding-top: 3.25rem !important; /* Make space so absolute delete cross icon at the top right doesn't overlap labels */
-    position: relative;
-  }
+}
 
-  .remove-btn {
-    top: 0.75rem !important;
-    right: 0.75rem !important;
+/* ==========================================================================
+   Monetization & Resume Custom presets & Blog Custom Styles
+   ========================================================================== */
+
+/* Resume Style Presets modifier rules */
+
+/* 1. Classic Academic (Default, serif-like structured spacing) */
+.resume-document.theme-classic {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 2. Modern Minimalist (Inter, Slate Accents, Left Aligned Header) */
+.resume-document.theme-modern {
+  font-family: 'Inter', sans-serif;
+  --resume-text-primary: #1e293b;
+  --resume-text-secondary: #475569;
+}
+
+.resume-document.theme-modern .resume-header {
+  text-align: left;
+  border-bottom: 2px solid #4f46e5;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.resume-document.theme-modern .resume-name {
+  font-family: 'Outfit', sans-serif;
+  color: #4f46e5;
+  font-size: 24pt;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.resume-document.theme-modern .resume-title {
+  color: #475569;
+  font-weight: 500;
+  font-size: 12pt;
+  margin-top: 0.25rem;
+}
+
+.resume-document.theme-modern .resume-contact {
+  justify-content: flex-start;
+  gap: 0.75rem 1rem;
+  margin-top: 0.5rem;
+  font-size: 9pt;
+}
+
+.resume-document.theme-modern .resume-section-title {
+  color: #1e293b;
+  border-bottom: 1px solid #cbd5e1;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  font-size: 10.5pt;
+  padding-bottom: 0.25rem;
+}
+
+/* 3. Elegant Executive (Georgia, Navy Accents, Clean Divided Header) */
+.resume-document.theme-executive {
+  font-family: Georgia, 'Times New Roman', serif;
+  --resume-text-primary: #0f172a;
+  --resume-text-secondary: #334155;
+  font-size: 10pt;
+}
+
+.resume-document.theme-executive .resume-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px double #1e3a8a;
+  padding-bottom: 1.25rem;
+}
+
+.resume-document.theme-executive .resume-name {
+  color: #1e3a8a;
+  font-family: Georgia, serif;
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 22pt;
+  letter-spacing: 0.08em;
+}
+
+.resume-document.theme-executive .resume-title {
+  font-style: italic;
+  color: #475569;
+  font-size: 11pt;
+  margin-top: 0.15rem;
+}
+
+.resume-document.theme-executive .resume-contact {
+  justify-content: center;
+  gap: 0.5rem 1.25rem;
+  margin-top: 0.75rem;
+  font-size: 9.5pt;
+}
+
+.resume-document.theme-executive .resume-section-title {
+  color: #1e3a8a;
+  border-bottom: 1.5px solid #1e3a8a;
+  font-size: 11pt;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin-top: 1.5rem;
+  padding-bottom: 0.15rem;
+}
+
+.resume-document.theme-executive .resume-item-header {
+  font-weight: bold;
+  color: #0f172a;
+}
+
+.resume-document.theme-executive .resume-item-title {
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* Animation Keyframes */
+@keyframes scaleUp {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Hover and Interactions for custom components */
+.template-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(99, 102, 241, 0.4) !important;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.08);
+}
+
+.template-card.selected:hover {
+  transform: none;
+}
+
+.mock-ad-container {
+  transition: var(--transition-smooth);
+}
+.mock-ad-container:hover {
+  border-color: rgba(99, 102, 241, 0.3) !important;
+  box-shadow: 0 6px 20px -5px rgba(99, 102, 241, 0.1) !important;
+}
+
+/* Blog Layout Styling */
+.blog-container {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.blog-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.blog-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.blog-title span {
+  background: linear-gradient(135deg, var(--primary), #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.blog-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.blog-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-smooth);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.01);
+}
+
+.blog-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(99, 102, 241, 0.3);
+  box-shadow: 0 20px 25px -5px rgba(99, 102, 241, 0.07), 0 10px 10px -5px rgba(99, 102, 241, 0.03);
+}
+
+.blog-card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-grow: 1;
+}
+
+.blog-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.blog-tag {
+  color: var(--primary);
+  font-weight: 600;
+  background: rgba(99, 102, 241, 0.08);
+  padding: 0.15rem 0.5rem;
+  borderRadius: 4px;
+}
+
+.blog-card-title {
+  font-size: 1.25rem;
+  font-weight: 750;
+  color: var(--text-main);
+  line-height: 1.35;
+  margin: 0;
+}
+
+.blog-card-description {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0;
+  flex-grow: 1;
+}
+
+.blog-card-link {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+
+.blog-card-link:hover {
+  text-decoration: underline;
+}
+
+/* Article Styling */
+.article-container {
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.article-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.article-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.article-content {
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: #1e293b; /* Slate-800 for high readability */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.article-content h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+
+.article-content h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-top: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.article-content p {
+  margin: 0;
+}
+
+.article-content ul, .article-content ol {
+  padding-left: 1.5rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.article-content li strong {
+  color: var(--text-main);
+}
+
+.article-content blockquote {
+  border-left: 4px solid var(--primary);
+  background: rgba(99, 102, 241, 0.03);
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.article-cta-box {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 3rem 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.article-cta-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 750;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.article-cta-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 480px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .blog-title {
+    font-size: 2.25rem;
+  }
+  .article-title {
+    font-size: 2rem;
+  }
+}
+

@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = 'https://cvolt-resume-builder.vercel.app';
+  const baseUrl = 'https://cvolt-eight.vercel.app/';
 
   return {
     rules: {

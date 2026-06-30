@@ -98,13 +98,16 @@ export default function DownloadSuccessModal({ isOpen, onClose }: DownloadSucces
         </div>
 
         {/* High Attention Ad placement */}
-        <div style={{ background: "rgba(148, 163, 184, 0.03)", borderRadius: "8px", padding: "0.5rem 0" }}>
-          <AdSense 
-            slot="5678901234" 
-            layout="banner" 
-            style={{ margin: 0 }} 
-          />
-        </div>
+        <AdSense 
+          slot="5678901234" 
+          layout="banner" 
+          style={{ 
+            background: "rgba(148, 163, 184, 0.03)", 
+            borderRadius: "8px", 
+            padding: "0.5rem 0",
+            margin: 0 
+          }} 
+        />
 
         {/* Final checklist and next actions */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem" }}>

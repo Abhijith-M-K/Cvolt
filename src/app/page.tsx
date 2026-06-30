@@ -19,7 +19,7 @@ export default function Home() {
   const [view, setView] = useState<"landing" | "editor">("landing");
   const [hasDraft, setHasDraft] = useState<boolean>(false);
   const [workspaceView, setWorkspaceView] = useState<"edit" | "preview">("edit");
-  const [templateStyle, setTemplateStyle] = useState<"classic" | "modern" | "executive">("classic");
+  const [templateStyle, setTemplateStyle] = useState<"classic" | "modern" | "executive" | "storyteller" | "slate" | "writer">("classic");
   const [showDownloadModal, setShowDownloadModal] = useState<boolean>(false);
 
   // AI Assistant States

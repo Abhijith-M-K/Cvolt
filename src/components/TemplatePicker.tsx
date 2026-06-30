@@ -4,8 +4,8 @@ import React from "react";
 import AdSense from "./AdSense";
 
 interface TemplatePickerProps {
-  selectedStyle: "classic" | "modern" | "executive";
-  onStyleChange: (style: "classic" | "modern" | "executive") => void;
+  selectedStyle: "classic" | "modern" | "executive" | "storyteller" | "slate" | "writer";
+  onStyleChange: (style: "classic" | "modern" | "executive" | "storyteller" | "slate" | "writer") => void;
   onContinue?: () => void;
 }
 
@@ -26,6 +26,30 @@ export default function TemplatePicker({ selectedStyle, onStyleChange, onContinu
       badge: "Popular",
       features: ["Inter font", "Balanced line height", "Charcoal headings"],
       previewColor: "#0f172a"
+    },
+    {
+      id: "storyteller" as const,
+      name: "Visual Storyteller",
+      description: "Clean layout with centered header, pipe separators, and bold section dividers. Inspired by Midhun Shyam CV format.",
+      badge: "Creative ATS",
+      features: ["Sans-serif fonts", "Pipe separators", "Bold dividers"],
+      previewColor: "#111111"
+    },
+    {
+      id: "slate" as const,
+      name: "Slate Tech",
+      description: "Sleek sans-serif typography with modern slate-grey detail accents and clean left-aligned sections. Built for developer & IT roles.",
+      badge: "Modern Tech",
+      features: ["Inter typography", "Slate accent headers", "Clean left-align"],
+      previewColor: "#475569"
+    },
+    {
+      id: "writer" as const,
+      name: "Minimalist Writer",
+      description: "Elegant serif font with absolute minimal styling, compact details, and spacious typographic hierarchy. Excellent for research & academia.",
+      badge: "Academic & Editorial",
+      features: ["Georgia typeface", "Minimal formatting", "Spacious layout"],
+      previewColor: "#1f2937"
     },
     {
       id: "executive" as const,
@@ -56,16 +80,16 @@ export default function TemplatePicker({ selectedStyle, onStyleChange, onContinu
         Choose Resume Template Preset
       </h3>
 
-      {/* Grid containing first 2 template options */}
+      {/* Vertical container containing template options and AdSense in between */}
       <div 
         style={{ 
-          display: "grid", 
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", 
+          display: "flex", 
+          flexDirection: "column", 
           gap: "1.25rem",
           marginBottom: "1rem"
         }}
       >
-        {templates.slice(0, 2).map((tpl) => {
+        {templates.slice(0, 3).map((tpl) => {
           const isSelected = selectedStyle === tpl.id;
           return (
             <div
@@ -140,25 +164,15 @@ export default function TemplatePicker({ selectedStyle, onStyleChange, onContinu
             </div>
           );
         })}
-      </div>
 
-      {/* Ad placement between resume template options as requested */}
-      <AdSense 
-        slot="3456789012" 
-        layout="banner" 
-        style={{ margin: "1rem 0" }} 
-      />
+        {/* Ad placement between resume template options as requested */}
+        <AdSense 
+          slot="3456789012" 
+          layout="banner" 
+          style={{ margin: "0.25rem 0" }} 
+        />
 
-      {/* Grid containing the remaining template option(s) */}
-      <div 
-        style={{ 
-          display: "grid", 
-          gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", 
-          gap: "1.25rem",
-          marginTop: "1rem"
-        }}
-      >
-        {templates.slice(2).map((tpl) => {
+        {templates.slice(3).map((tpl) => {
           const isSelected = selectedStyle === tpl.id;
           return (
             <div

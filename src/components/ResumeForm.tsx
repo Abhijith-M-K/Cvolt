@@ -11,8 +11,8 @@ interface ResumeFormProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
   onOptimizeField: (fieldPath: string, currentValue: string, context: string) => void;
-  templateStyle: "classic" | "modern" | "executive";
-  onStyleChange: (style: "classic" | "modern" | "executive") => void;
+  templateStyle: "classic" | "modern" | "executive" | "storyteller" | "slate" | "writer";
+  onStyleChange: (style: "classic" | "modern" | "executive" | "storyteller" | "slate" | "writer") => void;
 }
 
 export default function ResumeForm({ data, onChange, activeTab, setActiveTab, onOptimizeField, templateStyle, onStyleChange }: ResumeFormProps) {

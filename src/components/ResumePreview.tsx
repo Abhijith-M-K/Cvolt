@@ -3,7 +3,7 @@ import { ResumeData } from "@/types/resume";
 
 interface ResumePreviewProps {
   data: ResumeData;
-  templateStyle?: "classic" | "modern" | "executive";
+  templateStyle?: "classic" | "modern" | "executive" | "storyteller" | "slate" | "writer";
 }
 
 export default function ResumePreview({ data, templateStyle = "classic" }: ResumePreviewProps) {
